@@ -120,13 +120,40 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 });
 
 // CONTACT FORM
-document.getElementById('contactForm')?.addEventListener('submit', function(e) {
+function setBtnState(btn, iconClass, text, bg) {
+  btn.textContent = '';
+  const icon = document.createElement('i');
+  icon.className = iconClass;
+  btn.appendChild(icon);
+  btn.appendChild(document.createTextNode(' ' + text));
+  btn.style.background = bg || '';
+}
+
+document.getElementById('contactForm')?.addEventListener('submit', async function(e) {
   e.preventDefault();
   const btn = this.querySelector('button');
-  const orig = btn.innerHTML;
-  btn.innerHTML = '<i class="fa fa-check"></i> Enviado!';
-  btn.style.background = '#28a745';
-  setTimeout(() => { btn.innerHTML = orig; btn.style.background = ''; this.reset(); }, 3000);
+  const origIcon = btn.querySelector('i')?.className || 'fa fa-paper-plane';
+  const origText = btn.querySelector('i')?.nextSibling?.textContent?.trim() || 'Enviar Mensagem';
+
+  setBtnState(btn, 'fa fa-spinner fa-spin', 'Enviando...', '');
+  btn.disabled = true;
+
+  const data = Object.fromEntries(new FormData(this));
+  const res = await fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify(data)
+  });
+
+  if (res.ok) {
+    setBtnState(btn, 'fa fa-check', 'Mensagem enviada!', '#28a745');
+    this.reset();
+  } else {
+    setBtnState(btn, 'fa fa-times', 'Erro ao enviar. Tente novamente.', '#dc3545');
+  }
+
+  btn.disabled = false;
+  setTimeout(() => { setBtnState(btn, origIcon, origText, ''); }, 4000);
 });
 
 // FADE IN ANIMATION ON SCROLL

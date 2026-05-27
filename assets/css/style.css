@@ -26,7 +26,7 @@ ul{list-style:none}
 .header .container{display:flex;align-items:center;justify-content:space-between;height:80px}
 .logo a{display:flex;align-items:center;gap:10px;text-decoration:none}
 .logo-icon{width:42px;height:42px;background:#DA291C;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px}
-.logo-text{font-size:24px;font-weight:700;color:#212529;letter-spacing:1px}.logo-text strong{color:#DA291C}
+.logo-text{font-size:24px;font-weight:700;color:#000;letter-spacing:1px}.logo-text strong{color:#DA291C}
 .nav ul{display:flex;gap:5px;list-style:none}
 .nav ul li a{padding:10px 15px;font-size:14px;font-weight:600;color:#212529;border-radius:4px;transition:0.3s;display:block}
 .nav ul li a:hover{color:#DA291C}

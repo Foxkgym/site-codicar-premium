@@ -235,7 +235,7 @@ ul{list-style:none}
 .partner-item:hover .partner-popup-logo{opacity:1;transform:translateX(-50%) translateY(0)}
 
 /* FOOTER */
-.footer-newsletter{background:#DA291C;padding:60px 0}
+.footer-newsletter{background:linear-gradient(135deg,#1A45CC 0%,#0B132B 100%);padding:60px 0}
 .newsletter-card{display:flex;align-items:center;gap:40px;flex-wrap:wrap}
 .newsletter-card h3{font-size:26px;font-weight:800;color:#fff;flex-shrink:0}
 .newsletter-card p{color:rgba(255,255,255,.85);flex-shrink:0;flex:1;min-width:200px}

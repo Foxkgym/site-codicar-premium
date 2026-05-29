@@ -148,6 +148,7 @@ document.getElementById('contactForm')?.addEventListener('submit', async functio
   if (res.ok) {
     setBtnState(btn, 'fa fa-check', 'Mensagem enviada!', '#28a745');
     this.reset();
+    setTimeout(() => { window.location.href = '/obrigado'; }, 1500);
   } else {
     setBtnState(btn, 'fa fa-times', 'Erro ao enviar. Tente novamente.', '#dc3545');
   }

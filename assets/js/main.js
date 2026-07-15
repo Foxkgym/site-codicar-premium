@@ -149,6 +149,11 @@ document.getElementById('contactForm')?.addEventListener('submit', async functio
     setBtnState(btn, 'fa fa-check', 'Mensagem enviada!', '#28a745');
     this.reset();
 
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      'event': 'contact_form_submit'
+    });
+
     // Dispara a conversão do Google Ads (rótulo próprio do formulário) e só
     // redireciona depois que o gtag confirmar o envio via event_callback.
     // O setTimeout é um fallback caso um bloqueador de anúncios impeça o

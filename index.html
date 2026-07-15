@@ -17,6 +17,19 @@
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'AW-11468836466');
+
+    // Rótulos de conversão do Google Ads — um por canal, para não misturar
+    // as métricas de WhatsApp/telefone com as do formulário de contato.
+    window.WHATSAPP_CONVERSION_LABEL = 'AW-11468836466/ki2VCI-9obEZEPKc4twq';
+    // TODO: crie uma ação de conversão separada para o formulário no Google Ads
+    // e substitua o valor abaixo pelo rótulo real gerado por ela.
+    window.FORM_CONVERSION_LABEL = 'AW-11468836466/SUBSTITUIR_LABEL_FORMULARIO';
+
+    // Dispara a conversão de clique (WhatsApp ou telefone). Usado no onclick
+    // de cada link para garantir que nenhum fique sem rastreamento.
+    function trackClickConversion(label) {
+      if (typeof gtag === 'function') gtag('event', 'conversion', { send_to: label });
+    }
   </script>
 </head>
 
@@ -31,7 +44,7 @@
       <div class="topbar-right">
         <a href="#"><i class="fab fa-facebook-f"></i></a>
         <a href="https://www.instagram.com/codicarpremium" target="_blank"><i class="fab fa-instagram"></i></a>
-        <a href="https://wa.me/5562982213965?text=Ol%C3%A1%21+Vindo+pelo+site%2C+e+gostaria+de+agendar+um+servi%C3%A7o." target="_blank"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://wa.me/5562982213965?text=Ol%C3%A1%21+Vindo+pelo+site%2C+e+gostaria+de+agendar+um+servi%C3%A7o." target="_blank" onclick="trackClickConversion(window.WHATSAPP_CONVERSION_LABEL)"><i class="fab fa-whatsapp"></i></a>
         <a href="#"><i class="fab fa-youtube"></i></a>
       </div>
     </div>
@@ -199,7 +212,7 @@
       <div class="cta-content text-center">
         <span class="section-subtitle-white">LIGUE AGORA E FAÇA SEU AGENDAMENTO</span>
         <h2>Manutencao e Reparos em Cambio automatico</h2>
-        <a href="tel:62982213965" class="cta-phone"><i class="fa fa-phone"></i> (62) 98221-3965</a>
+        <a href="tel:62982213965" class="cta-phone" onclick="trackClickConversion(window.WHATSAPP_CONVERSION_LABEL)"><i class="fa fa-phone"></i> (62) 98221-3965</a>
         <div class="cta-play">
           <a href="https://www.youtube.com/watch?v=KVAa7OCHxjg" class="play-btn" target="_blank"><i
               class="fa fa-play"></i></a>
@@ -624,7 +637,7 @@
           </div>
         </div>
         <div class="contact-form">
-          <form id="contactForm">
+          <form id="contactForm" method="post">
             <input type="hidden" name="access_key" value="0c69fffc-d3c2-4a6a-9658-863020394b76">
             <input type="hidden" name="subject" value="Nova mensagem do site - Codicar Premium">
             <div class="form-row">
@@ -699,7 +712,7 @@
             <div class="footer-social">
               <a href="#"><i class="fab fa-facebook-f"></i></a>
               <a href="https://www.instagram.com/codicarpremium" target="_blank"><i class="fab fa-instagram"></i></a>
-              <a href="https://wa.me/5562982213965?text=Ol%C3%A1%21+Vindo+pelo+site%2C+e+gostaria+de+agendar+um+servi%C3%A7o." target="_blank"><i class="fab fa-whatsapp"></i></a>
+              <a href="https://wa.me/5562982213965?text=Ol%C3%A1%21+Vindo+pelo+site%2C+e+gostaria+de+agendar+um+servi%C3%A7o." target="_blank" onclick="trackClickConversion(window.WHATSAPP_CONVERSION_LABEL)"><i class="fab fa-whatsapp"></i></a>
               <a href="#"><i class="fab fa-youtube"></i></a>
             </div>
           </div>
@@ -731,7 +744,7 @@
               <p>Av. Pedro Ludovico, Qd 02 Lt 14<br>Anapolis - GO, 75145-275</p>
             </div>
             <div class="footer-contact-item"><i class="fa fa-phone"></i>
-              <p><a href="tel:5562982213965">(62) 98221-3965</a></p>
+              <p><a href="tel:5562982213965" onclick="trackClickConversion(window.WHATSAPP_CONVERSION_LABEL)">(62) 98221-3965</a></p>
             </div>
             <div class="footer-contact-item"><i class="fa fa-envelope"></i>
               <p><a href="mailto:atendimento@codicarpremium.email">atendimento@codicarpremium.email</a></p>
@@ -752,28 +765,9 @@
   <!-- BACK TO TOP -->
   <a href="#" class="back-to-top" id="backTop"><i class="fa fa-arrow-up"></i></a>
   <!-- WHATSAPP FLOATING BUTTON -->
-  <a href="https://wa.me/5562982213965?text=Ol%C3%A1%21+Vindo+pelo+site%2C+e+gostaria+de+agendar+um+servi%C3%A7o." target="_blank" class="whatsapp-float">
+  <a href="https://wa.me/5562982213965?text=Ol%C3%A1%21+Vindo+pelo+site%2C+e+gostaria+de+agendar+um+servi%C3%A7o." target="_blank" class="whatsapp-float" onclick="trackClickConversion(window.WHATSAPP_CONVERSION_LABEL)">
     <i class="fab fa-whatsapp"></i>
   </a>
-  <script>
-    // Conversão Google Ads "Clicou no Whatsapp" — dispara em qualquer clique
-    // em link de WhatsApp (wa.me) ou telefone (tel:), em todo o site.
-    (function () {
-      var LABEL = 'AW-11468836466/ki2VCI-9obEZEPKc4twq';
-      document.addEventListener('click', function (e) {
-        var link = e.target.closest ? e.target.closest('a[href]') : null;
-        if (!link) return;
-        var href = link.getAttribute('href') || '';
-        if (href.indexOf('wa.me') !== -1 || href.indexOf('api.whatsapp.com') !== -1 || href.indexOf('tel:') === 0) {
-          if (typeof gtag === 'function') gtag('event', 'conversion', { 'send_to': LABEL });
-        }
-      }, true);
-      var form = document.getElementById('contactForm');
-      if (form) form.addEventListener('submit', function () {
-        if (typeof gtag === 'function') gtag('event', 'conversion', { 'send_to': LABEL });
-      });
-    })();
-  </script>
   <script src="assets/js/main.js"></script>
 </body>
 

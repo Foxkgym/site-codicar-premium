@@ -148,7 +148,17 @@ document.getElementById('contactForm')?.addEventListener('submit', async functio
   if (res.ok) {
     setBtnState(btn, 'fa fa-check', 'Mensagem enviada!', '#28a745');
     this.reset();
-    setTimeout(() => { window.location.href = '/obrigado'; }, 1500);
+
+    // Dispara a conversão do Google Ads (rótulo próprio do formulário) e só
+    // redireciona depois que o gtag confirmar o envio via event_callback.
+    // O setTimeout é um fallback caso um bloqueador de anúncios impeça o
+    // gtag de rodar ou de chamar o callback.
+    let redirected = false;
+    const goToThankYou = () => { if (!redirected) { redirected = true; window.location.href = '/obrigado'; } };
+    if (typeof gtag === 'function' && window.FORM_CONVERSION_LABEL) {
+      gtag('event', 'conversion', { send_to: window.FORM_CONVERSION_LABEL, event_callback: goToThankYou });
+    }
+    setTimeout(goToThankYou, 1500);
   } else {
     setBtnState(btn, 'fa fa-times', 'Erro ao enviar. Tente novamente.', '#dc3545');
   }

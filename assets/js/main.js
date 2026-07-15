@@ -159,6 +159,9 @@ document.getElementById('contactForm')?.addEventListener('submit', async functio
     if (typeof gtag === 'function' && window.FORM_CONVERSION_LABEL) {
       gtag('event', 'conversion', { send_to: window.FORM_CONVERSION_LABEL });
     }
+    if (typeof gtag === 'function' && window.CONTACT_CONVERSION_LABEL) {
+      gtag('event', 'conversion', { send_to: window.CONTACT_CONVERSION_LABEL });
+    }
   } else {
     setBtnState(btn, 'fa fa-times', 'Erro ao enviar. Tente novamente.', '#dc3545');
   }
